@@ -121,7 +121,7 @@ _controller.removeListener(_onTextChanged);
               ),
               textAlign: TextAlign.center,
             ),
-          
+          ],
         ),
       ),
     );
