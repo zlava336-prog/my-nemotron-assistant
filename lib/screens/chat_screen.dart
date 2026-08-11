@@ -16,9 +16,19 @@ class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
   final FocusNode _focusNode = FocusNode();
 
+@override
+void initState() {
+  super.initState();
+  _controller.addListener(_onTextChanged);
+}
+
+void _onTextChanged() {
+  setState(() {});
+}
   @override
   void dispose() {
-    _controller.dispose();
+_controller.removeListener(_onTextChanged);   
+ _controller.dispose();
     _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -111,7 +121,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-          ],
+          
         ),
       ),
     );
@@ -138,7 +148,10 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextField(
                 controller: _controller,
                 focusNode: _focusNode,
-                maxLines: null,
+                minLines: 1,
+                maxLines: 5,
+                keyboardType: TextInputType.multiline,
+                textInputAction: TextInputAction.send,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   hintText: l10n.messagePlaceholder,
