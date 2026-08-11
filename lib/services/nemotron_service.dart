@@ -4,7 +4,7 @@ import '../models/chat_message.dart';
 
 class NemotronService {
   static const String _baseUrl = 'https://integrate.api.nvidia.com/v1';
-  static const String _model = 'nvidia/nemotron-3-ultra';
+  static const String _model = 'nvidia/nemotron-3-ultra-550b-a55b';
   
   String _apiKey = '';
   bool _isInitialized = false;
@@ -132,7 +132,9 @@ If the user speaks in Hindi, reply in Hindi. If in English, reply in English.'''
               fullResponse += content;
               onChunk(fullResponse);
             }
-          } catch (_) {}
+          } catch (e) {
+  print('STREAM JSON ERROR: $e');
+}
         }
       }
       
