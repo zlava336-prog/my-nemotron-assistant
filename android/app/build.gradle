@@ -1,84 +1,77 @@
+plugins {
+id "com.android.application"
+id "org.jetbrains.kotlin.android"
+id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localProperties.load(new FileInputStream(localPropertiesFile))
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+localProperties.load(new FileInputStream(localPropertiesFile))
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+flutterVersionCode = '1'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.0'
+flutterVersionName = '1.0.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
 android {
-    namespace "com.example.my_nemotron_assistant"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+namespace "com.example.my_nemotron_assistant"
+compileSdkVersion flutter.compileSdkVersion
+ndkVersion flutter.ndkVersion
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+kotlinOptions {
+    jvmTarget = '1.8'
+}
+
+defaultConfig {
+    applicationId "com.example.my_nemotron_assistant"
+    minSdkVersion 21
+    targetSdkVersion flutter.targetSdkVersion
+    versionCode flutterVersionCode.toInteger()
+    versionName flutterVersionName
+    multiDexEnabled true
+}
+
+buildTypes {
+    release {
+        signingConfig signingConfigs.debug
+        minifyEnabled true
+        shrinkResources true
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
+    debug {
+        signingConfig signingConfigs.debug
     }
+}
 
-    defaultConfig {
-        applicationId "com.example.my_nemotron_assistant"
-        minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        multiDexEnabled true
-    }
+buildFeatures {
+    viewBinding true
+}
 
-    buildTypes {
-        release {
-            signingConfig signingConfigs.debug
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            signingConfig signingConfigs.debug
-        }
+packagingOptions {
+    resources {
+        excludes += ['META-INF/*']
     }
+}
 
-    buildFeatures {
-        viewBinding true
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    packagingOptions {
-        resources {
-            excludes += ['META-INF/*']
-        }
-    }
 }
 
 flutter {
-    source '../..'
+source '../..'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.multidex:multidex:2.0.1'
+implementation 'androidx.multidex:multidex:2.0.1'
 }
