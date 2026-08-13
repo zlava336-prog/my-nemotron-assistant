@@ -1,0 +1,6 @@
+{
+  "name": "MediVault India",
+  "description": "Educational medicine reference and learning application for medicines commonly used in India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,181 +1,22 @@
-# My Nemotron Assistant
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-A lightweight personal AI assistant app for Android powered by NVIDIA Nemotron 3 Ultra API.
+# Run and deploy your AI Studio app
 
-## Features
+This contains everything you need to run your app locally.
 
-- **Clean, Simple UI** - Material 3 design with light/dark theme support
-- **Chat Interface** - Real-time messaging with streaming responses
-- **Nemotron 3 Ultra Integration** - Connects directly to NVIDIA's API
-- **Bilingual Support** - English and Hindi languages
-- **Lightweight** - Optimized for Android phones
-- **Offline Chat History** - Messages saved locally
-- **Secure API Key Storage** - Stored locally on device
+View your app in AI Studio: https://ai.studio/apps/88c15238-2a2d-4e97-b393-86120a717a28
 
-## Prerequisites
+## Run Locally
 
-1. **Flutter SDK** (3.16 or later)
-2. **Android Studio** with Android SDK (API 21+)
-3. **NVIDIA Nemotron API Key** - Get from [NVIDIA API Catalog](https://build.nvidia.com/nvidia/nemotron-3-ultra)
-4. **Java 17** or later
+**Prerequisites:**  [Android Studio](https://developer.android.com/studio)
 
-## Getting Your Nemotron API Key
 
-1. Go to [NVIDIA API Catalog](https://build.nvidia.com/nvidia/nemotron-3-ultra)
-2. Sign in or create an account
-3. Generate an API key
-4. Copy the key for use in the app
-
-## Project Structure
-
-```
-my_nemotron_assistant/
-├── android/                 # Android native code
-├── lib/
-│   ├── l10n/               # Localization (English, Hindi)
-│   ├── models/             # Data models
-│   ├── providers/          # State management (Provider)
-│   ├── screens/            # UI screens
-│   ├── services/           # API services
-│   ├── main.dart           # App entry point
-│   └── utils/              # Utilities
-├── pubspec.yaml            # Dependencies
-└── README.md
-```
-
-## Installation & Setup
-
-### 1. Clone/Extract Project
-```bash
-cd my_nemotron_assistant
-```
-
-### 2. Install Flutter Dependencies
-```bash
-flutter pub get
-```
-
-### 3. Configure Android SDK Path
-Edit `android/local.properties`:
-```properties
-flutter.sdk=/path/to/your/flutter/sdk
-```
-Or run:
-```bash
-flutter config --android-sdk /path/to/android/sdk
-```
-
-### 4. Verify Setup
-```bash
-flutter doctor
-flutter devices
-```
-
-## Building the APK
-
-### Debug APK (for testing)
-```bash
-flutter build apk --debug
-```
-Output: `build/app/outputs/flutter-apk/app-debug.apk`
-
-### Release APK (optimized, signed)
-```bash
-flutter build apk --release
-```
-Output: `build/app/outputs/flutter-apk/app-release.apk`
-
-### Release App Bundle (for Play Store)
-```bash
-flutter build appbundle --release
-```
-Output: `build/app/outputs/bundle/release/app-release.aab`
-
-## Installing on Your Phone
-
-### Option 1: ADB (Recommended for development)
-```bash
-# Enable USB debugging on your phone
-# Connect phone via USB
-adb install build/app/outputs/flutter-apk/app-release.apk
-```
-
-### Option 2: Direct Transfer
-1. Copy the APK to your phone
-2. Enable "Install unknown apps" for your file manager
-3. Tap the APK to install
-
-### Option 3: Flutter Install (device connected)
-```bash
-flutter install --release
-```
-
-## Using the App
-
-1. **First Launch**: App opens to chat screen
-2. **Set API Key**: Tap Settings (gear icon) → Enter your Nemotron API key → Save
-3. **Start Chatting**: Type messages in English or Hindi
-4. **Switch Language**: Settings → Language → Select English/Hindi
-5. **Clear Chat**: Settings → Clear Chat
-
-## Configuration
-
-### API Endpoint
-The app uses NVIDIA's official endpoint: `https://integrate.api.nvidia.com/v1/chat/completions`
-
-### Model
-Default: `nvidia/nemotron-3-ultra`
-
-### Customization
-Edit `lib/services/nemotron_service.dart` to modify:
-- Temperature (creativity): `0.7`
-- Max tokens: `1024`
-- System prompt
-
-## Troubleshooting
-
-### Build Errors
-```bash
-flutter clean
-flutter pub get
-flutter build apk --release
-```
-
-### API Key Issues
-- Ensure key is valid and has Nemotron 3 Ultra access
-- Check internet connection
-- Verify key format (no extra spaces)
-
-### Hindi Not Displaying
-- Ensure device has Hindi font support
-- Restart app after language change
-
-### App Crashes on Launch
-- Check `flutter doctor` for issues
-- Verify minSdkVersion 21 (Android 5.0+)
-- Check logcat: `adb logcat`
-
-## Performance Tips
-
-- App uses streaming for real-time responses
-- Chat history limited to local storage
-- Release build uses R8 optimization
-- Minimal dependencies for small APK size (~15-20 MB)
-
-## Security Notes
-
-- API key stored in Android SharedPreferences (app-private)
-- No data sent to third parties except NVIDIA API
-- All network traffic over HTTPS
-- No analytics or tracking
-
-## License
-
-Personal use only. NVIDIA Nemotron API subject to NVIDIA terms.
-
-## Support
-
-For issues:
-1. Check Flutter and Android SDK versions
-2. Verify API key validity
-3. Check device logs with `adb logcat`
+1. Open Android Studio
+2. Select **Open** and choose the directory containing this project
+3. Allow Android Studio to fix any incompatibilities as it imports the project.
+4. Create a file named `.env` in the project directory and set `GEMINI_API_KEY` in that file to your Gemini API key (see `.env.example` for an example)
+5. Remove this line from the app's `build.gradle.kts` file: `signingConfig = signingConfigs.getByName("debugConfig")`
+6. Run the app on an emulator or physical device
+7. If you have already published your app in AI Studio, please [request upload key reset](https://support.google.com/googleplay/android-developer/answer/9842756#zippy=%2Crequest-an-upload-key-reset) in Google Play Console.
